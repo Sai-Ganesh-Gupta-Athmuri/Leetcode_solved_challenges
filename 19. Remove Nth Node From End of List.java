@@ -8,6 +8,9 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
+//BRUTE FORCE APPROACH
+
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode start = head;
@@ -59,3 +62,39 @@ class Solution {
         return head;
     }
 }
+
+
+//OPTIMAL SOLUTION
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head == null) return null;
+        if(head.next == null && n == 1) return null;
+        ListNode i = head;
+        ListNode j = null;
+        int c = 1;
+        while(i.next != null){
+            if(c == n){
+                j = head;
+            }
+            if(c > n){
+                i = i.next;
+                j = j.next;
+                c++;
+            }else{
+                i = i.next;
+                c++;
+            }
+        }
+        if(n == c){
+            return head.next;
+        }
+        if(n == 1){
+            j.next = null;
+            return head;
+        }
+        j.next = j.next.next;
+        return head;
+    }
+}
+
